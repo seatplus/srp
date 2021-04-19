@@ -1,0 +1,59 @@
+<?php
+
+
+namespace Seatplus\Srp\Models;
+
+
+use Illuminate\Database\Eloquent\Casts\AsArrayObject;
+use Illuminate\Database\Eloquent\Casts\AsCollection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+use Seatplus\Srp\database\factories\SrpRequestFactory;
+
+class SrpRequest extends Model
+{
+
+    use HasFactory;
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
+
+    /**
+     * The attributes that should be cast.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'killmail' => 'array',
+    ];
+
+    /**
+     * Indicates if the model's ID is auto-incrementing.
+     *
+     * @var bool
+     */
+    public $incrementing = false;
+
+    /**
+     * The data type of the auto-incrementing ID.
+     *
+     * @var string
+     */
+    protected $keyType = 'string';
+
+    protected static function newFactory()
+    {
+        return SrpRequestFactory::new();
+    }
+
+    public function getKillmailArrayAttribute()
+    {
+        return json_decode($this->killmail, true);
+    }
+
+
+}
