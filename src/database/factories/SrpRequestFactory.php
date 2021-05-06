@@ -28,7 +28,6 @@ namespace Seatplus\Srp\database\factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Seatplus\Srp\Models\SrpRequest;
-use Seatplus\Web\Models\ManualLocation;
 
 class SrpRequestFactory extends Factory
 {
@@ -44,9 +43,9 @@ class SrpRequestFactory extends Factory
         $killmail = file_get_contents('src/database/factories/19c919549fb5b4359324fc7938b21f2965f1baf0.json');
 
         return [
-            'id' => md5($killmail),
-            'user_id' => $this->faker->randomNumber(),
-            'killmail' => $killmail,
+            'id'          => md5($killmail),
+            'user_id'     => $this->faker->randomNumber(),
+            'killmail'    => $killmail,
             'description' => $this->faker->text,
         ];
     }

@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Seatplus\Srp\Http\Controller;
-
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
@@ -18,19 +16,19 @@ class RequestController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'killmailUrl' => ['required', 'string']
+            'killmailUrl' => ['required', 'string'],
         ]);
 
         $response = Http::get($request->get('killmailUrl'));
 
-        if($response->ok()) {
+        if ($response->ok()) {
             $killmail = $response->body();
 
             $srp_request = SrpRequest::create([
-                'id' => md5($killmail),
-                'user_id' => auth()->user()->getAuthIdentifier(),
-                'killmail' => $killmail,
-                'description' => $request->get('description') ?? ''
+                'id'          => md5($killmail),
+                'user_id'     => auth()->user()->getAuthIdentifier(),
+                'killmail'    => $killmail,
+                'description' => $request->get('description') ?? '',
             ]);
         }
 
