@@ -45,7 +45,7 @@ class SrpReceipt extends Model
 
     protected static function newFactory()
     {
-         //TODO SrpRequestFactory::new();
+        //TODO SrpRequestFactory::new();
     }
 
     public function srp_requests()
