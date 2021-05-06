@@ -60,10 +60,7 @@
         </form>
       </div>
     </div>
-
-
-
-
+    <SubmittedRequests :requests="requests" />
 
   </div>
 </template>
@@ -72,10 +69,17 @@
 import PageHeader from "@/Shared/Layout/PageHeader";
 import { useForm } from '@inertiajs/inertia-vue3'
 import route from 'ziggy'
+import SubmittedRequests from "./SubmittedRequests";
 
 export default {
     name: "Request",
-    components: {PageHeader},
+    components: {SubmittedRequests, PageHeader},
+    props: {
+        requests: {
+            type: Object,
+            required: true
+        }
+    },
     setup() {
 
         const form = useForm({

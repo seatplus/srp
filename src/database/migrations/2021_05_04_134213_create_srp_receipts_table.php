@@ -25,51 +25,38 @@
  *
  */
 
-namespace Seatplus\Srp\Models;
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Seatplus\Auth\Models\User;
-use Seatplus\Eveapi\Models\Killmails\Killmail;
-use Seatplus\Srp\database\factories\SrpRequestFactory;
-
-class SrpRequest extends Model
+class CreateSrpReceiptsTable extends Migration
 {
-    use HasFactory;
-
     /**
-     * The attributes that aren't mass assignable.
+     * Run the migrations.
      *
-     * @var array
+     * @return void
      */
-    protected $guarded = [];
-
-    /**
-     * Indicates if the model's ID is auto-incrementing.
-     *
-     * @var bool
-     */
-    public $incrementing = false;
-
-    /**
-     * The data type of the auto-incrementing ID.
-     *
-     * @var string
-     */
-    protected $keyType = 'string';
-
-    protected static function newFactory()
+    public function up()
     {
-        return SrpRequestFactory::new();
+        Schema::create('srp_receipts', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('receiver_id')->constrained('users');
+            $table->foreignId('accountant_id')->constrained('users');
+            $table->string('uuid');
+            $table->double('amount')->default(0.0);
+            $table->timestamps();
+
+            $table->index('uuid');
+        });
     }
 
-    public function killmail()
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
     {
-        return $this->belongsTo(Killmail::class, 'id', 'killmail_hash');
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        Schema::dropIfExists('srp_receipts');
     }
 }

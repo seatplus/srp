@@ -7,15 +7,14 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Queue;
 use Inertia\Inertia;
 use Inertia\ServiceProvider as InertiaServiceProviderAlias;
-use Laravel\Horizon\HorizonServiceProvider;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Seatplus\Auth\AuthenticationServiceProvider;
 use Seatplus\Auth\Models\Permissions\Permission;
 use Seatplus\Eveapi\EveapiServiceProvider;
 use Seatplus\Auth\Models\User;
 use Seatplus\Srp\SrpServiceProvider;
+use Seatplus\Srp\Tests\Stubs\Kernel;
 use Seatplus\Web\Http\Middleware\Authenticate;
-use Seatplus\Web\Tests\Stubs\Kernel;
 use Seatplus\Web\WebServiceProvider;
 use Spatie\Permission\PermissionRegistrar;
 
@@ -47,7 +46,8 @@ abstract class TestCase extends OrchestraTestCase
 
         $this->test_character = $this->test_user->characters->first();
 
-        $this->app->instance('path.public', __DIR__ .'/../src/public');
+        $this->app->instance('path.public', __DIR__ .'/../vendor/seatplus/web/src/public');
+
 
         Permission::findOrCreate('superuser');
     }

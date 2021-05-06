@@ -25,7 +25,7 @@
     "ext-json": "*",
     "ext-redis": "*",
     "laravel/framework": "^8.0",
-    "seatplus/web": "*"
+    "seatplus/web": "^0.8.4"
   },
   "require-dev": {
     "orchestra/testbench": "^6.10",

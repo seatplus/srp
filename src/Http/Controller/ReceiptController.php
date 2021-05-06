@@ -25,51 +25,17 @@
  *
  */
 
-namespace Seatplus\Srp\Models;
+namespace Seatplus\Srp\Http\Controller;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Seatplus\Auth\Models\User;
-use Seatplus\Eveapi\Models\Killmails\Killmail;
-use Seatplus\Srp\database\factories\SrpRequestFactory;
+use Seatplus\Srp\Models\SrpReceipt;
 
-class SrpRequest extends Model
+class ReceiptController
 {
-    use HasFactory;
-
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array
-     */
-    protected $guarded = [];
-
-    /**
-     * Indicates if the model's ID is auto-incrementing.
-     *
-     * @var bool
-     */
-    public $incrementing = false;
-
-    /**
-     * The data type of the auto-incrementing ID.
-     *
-     * @var string
-     */
-    protected $keyType = 'string';
-
-    protected static function newFactory()
+    public function index(string $uuid)
     {
-        return SrpRequestFactory::new();
-    }
-
-    public function killmail()
-    {
-        return $this->belongsTo(Killmail::class, 'id', 'killmail_hash');
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return inertia('Srp/Receipt/Index', [
+            'receipt' => SrpReceipt::with(['srp_requests' => fn ($query) => $query->with('killmail', 'killmail.ship', 'killmail.system'), 'accountant.main_character', 'receiver.main_character'])
+                ->firstWhere('uuid', $uuid),
+        ]);
     }
 }

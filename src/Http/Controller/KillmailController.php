@@ -25,51 +25,27 @@
  *
  */
 
-namespace Seatplus\Srp\Models;
+namespace Seatplus\Srp\Http\Controller;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Seatplus\Auth\Models\User;
-use Seatplus\Eveapi\Models\Killmails\Killmail;
-use Seatplus\Srp\database\factories\SrpRequestFactory;
+use Seatplus\Eveapi\Models\Killmails\KillmailItem;
 
-class SrpRequest extends Model
+class KillmailController extends Controller
 {
-    use HasFactory;
-
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array
-     */
-    protected $guarded = [];
-
-    /**
-     * Indicates if the model's ID is auto-incrementing.
-     *
-     * @var bool
-     */
-    public $incrementing = false;
-
-    /**
-     * The data type of the auto-incrementing ID.
-     *
-     * @var string
-     */
-    protected $keyType = 'string';
-
-    protected static function newFactory()
+    public function items(int $location_id)
     {
-        return SrpRequestFactory::new();
+        $query = KillmailItem::query()
+            ->with('type')
+            ->where('location_id', $location_id);
+
+        return $query->paginate();
     }
 
-    public function killmail()
+    public function updateItem(int $item_id)
     {
-        return $this->belongsTo(Killmail::class, 'id', 'killmail_hash');
-    }
+        request()->validate([
+            'price' => ['required', 'numeric'],
+        ]);
 
-    public function user()
-    {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        KillmailItem::where('id', $item_id)->update(['price' => request()->get('price')]);
     }
 }
