@@ -1,8 +1,31 @@
 <?php
 
+/*
+ * MIT License
+ *
+ * Copyright (c) 2021 seatplus
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ *
+ */
 
 namespace Seatplus\Srp\Http\Controller;
-
 
 use Illuminate\Bus\Batch;
 use Illuminate\Http\Request;
@@ -18,20 +41,20 @@ class RequestController extends Controller
     public function index()
     {
         $requests = SrpRequest::query()
-            ->with(['killmail' => fn($query) => $query->with('ship', 'system', 'system.region')])
+            ->with(['killmail' => fn ($query) => $query->with('ship', 'system', 'system.region')])
             ->where('user_id', auth()->user()->getAuthIdentifier())
             ->orderBy('created_at')
             ->paginate();
 
         return inertia('Srp/Request', [
-            'requests' => $requests
+            'requests' => $requests,
         ]);
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'killmailUrl' => ['required', 'string']
+            'killmailUrl' => ['required', 'string'],
         ]);
 
         $collection = Str::of($request->get('killmailUrl'))
@@ -48,29 +71,30 @@ class RequestController extends Controller
         SrpRequest::create([
             'id' => $killmail_hash,
             'user_id' => auth()->user()->getAuthIdentifier(),
-            'description' => $request->get('description') ?? ''
+            'description' => $request->get('description') ?? '',
         ]);
 
-        if(Killmail::firstWhere('killmail_hash', $killmail_hash))
+        if (Killmail::firstWhere('killmail_hash', $killmail_hash)) {
             return redirect()->route('view.srp.request', $killmail_hash);
+        }
 
-        if(cache($killmail_hash))
+        if (cache($killmail_hash)) {
             return inertia('Srp/Processing', [
                 'id' => $killmail_hash,
-                'batchId' => cache($killmail_hash)
+                'batchId' => cache($killmail_hash),
             ]);
+        }
 
         $batch = $this->dispatchBatch($killmail_id, $killmail_hash);
 
         return inertia('Srp/Processing', [
             'id' => $killmail_hash,
-            'batchId' => $batch->id
+            'batchId' => $batch->id,
         ]);
     }
 
     public function viewRequest(string $id)
     {
-
         $srp_request = SrpRequest::find($id);
         throw_unless($srp_request, 'unknown srp request id');
 
@@ -78,29 +102,30 @@ class RequestController extends Controller
             ->with('ship', 'system', 'attackers')
             ->firstWhere('killmail_hash', $id);
 
-        if($killmail->complete)
+        if ($killmail->complete) {
             return inertia('Srp/Killmail', [
                 'killmail' => $killmail,
                 'srpRequest' => $srp_request,
                 'step' => $this->getStep($srp_request),
-                'canEdit' => $this->canEdit($srp_request)
+                'canEdit' => $this->canEdit($srp_request),
             ]);
+        }
 
-        if(cache($id))
+        if (cache($id)) {
             return inertia('Srp/Processing', [
-                'batchId' => cache($id)
+                'batchId' => cache($id),
             ]);
+        }
 
-        $batch =  $this->dispatchBatch($killmail->killmail_id, $killmail->killmail_hash);
+        $batch = $this->dispatchBatch($killmail->killmail_id, $killmail->killmail_hash);
 
         return inertia('Srp/Processing', [
-            'batchId' => $batch->id
+            'batchId' => $batch->id,
         ]);
-
     }
 
-    public function submitRequest(string $id) {
-
+    public function submitRequest(string $id)
+    {
         request()->validate([
             'reimbursement' => ['required', 'numeric'],
         ]);
@@ -116,7 +141,6 @@ class RequestController extends Controller
         $srp_request->save();
 
         return redirect()->route('srp.request');
-
     }
 
     public function handleRequest(string $id, Request $request)
@@ -124,7 +148,7 @@ class RequestController extends Controller
         $request->validate([
             'sum' => ['required', 'numeric'],
             'killmail_hash' => ['required', 'string', 'exists:srp_requests,id'],
-            'decision' => ['required', 'bool']
+            'decision' => ['required', 'bool'],
         ]);
 
         $srp_request = SrpRequest::find($id);
@@ -132,8 +156,9 @@ class RequestController extends Controller
         $srp_request->reimbursement = $request->get('sum');
         $srp_request->save();
 
-        if($srp_request->user_id === auth()->user()->getAuthIdentifier())
+        if ($srp_request->user_id === auth()->user()->getAuthIdentifier()) {
             return redirect()->route('review.srp.requests');
+        }
 
         return redirect()->route('srp.request');
     }
@@ -160,9 +185,9 @@ class RequestController extends Controller
     {
         $batch = Bus::batch(
             [
-                new KillmailJob($killmail_id, $killmail_hash)
+                new KillmailJob($killmail_id, $killmail_hash),
             ])
-            ->catch(fn($e) => logger()->debug($e))
+            ->catch(fn ($e) => logger()->debug($e))
             ->then(fn (Batch $batch) => cache()->forget($killmail_hash))
             ->name('Process Killmail Job')
             ->allowFailures()
