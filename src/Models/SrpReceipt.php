@@ -12,7 +12,7 @@ use Seatplus\Auth\Models\User;
 use Seatplus\Eveapi\Models\Killmails\Killmail;
 use Seatplus\Srp\database\factories\SrpRequestFactory;
 
-class SrpRequest extends Model
+class SrpReceipt extends Model
 {
 
     use HasFactory;
@@ -24,33 +24,24 @@ class SrpRequest extends Model
      */
     protected $guarded = [];
 
-    /**
-     * Indicates if the model's ID is auto-incrementing.
-     *
-     * @var bool
-     */
-    public $incrementing = false;
-
-    /**
-     * The data type of the auto-incrementing ID.
-     *
-     * @var string
-     */
-    protected $keyType = 'string';
-
     protected static function newFactory()
     {
-        return SrpRequestFactory::new();
+        return; //TODO SrpRequestFactory::new();
     }
 
-    public function killmail()
+    public function srp_requests()
     {
-        return $this->belongsTo(Killmail::class, 'id', 'killmail_hash');
+        return $this->hasMany(SrpRequest::class, 'receipt_id', 'id');
     }
 
-    public function user()
+    public function accountant()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return $this->belongsTo(User::class, 'accountant_id');
+    }
+
+    public function receiver()
+    {
+        return $this->belongsTo(User::class, 'receiver_id');
     }
 
 

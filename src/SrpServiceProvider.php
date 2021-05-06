@@ -42,6 +42,10 @@ class SrpServiceProvider extends ServiceProvider
         $this->mergeConfigFrom(
             __DIR__ . '/config/package.sidebar.php', 'package.sidebar'
         );
+
+        $this->mergeConfigFrom(
+            __DIR__ . '/config/package.permissions.php', 'web.permissions'
+        );
     }
 
     private function addPublications()
