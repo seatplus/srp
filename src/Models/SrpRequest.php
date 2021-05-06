@@ -1,18 +1,13 @@
 <?php
 
-
 namespace Seatplus\Srp\Models;
 
-
-use Illuminate\Database\Eloquent\Casts\AsArrayObject;
-use Illuminate\Database\Eloquent\Casts\AsCollection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Seatplus\Srp\database\factories\SrpRequestFactory;
 
 class SrpRequest extends Model
 {
-
     use HasFactory;
 
     /**
@@ -54,6 +49,4 @@ class SrpRequest extends Model
     {
         return json_decode($this->killmail, true);
     }
-
-
 }

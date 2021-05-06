@@ -1,12 +1,8 @@
 <?php
 
-
 namespace Seatplus\Srp;
 
-
-use Illuminate\Contracts\Debug\ExceptionHandler;
 use Illuminate\Support\ServiceProvider;
-use Seatplus\Web\Exception\Handler;
 
 class SrpServiceProvider extends ServiceProvider
 {
@@ -21,11 +17,10 @@ class SrpServiceProvider extends ServiceProvider
         $this->addPublications();
 
         // Add routes
-        $this->loadRoutesFrom(__DIR__ . '/Http/routes.php');
-
+        $this->loadRoutesFrom(__DIR__.'/Http/routes.php');
 
         //Add Migrations
-        $this->loadMigrationsFrom(__DIR__ . '/database/migrations/');
+        $this->loadMigrationsFrom(__DIR__.'/database/migrations/');
 
         // Add translations
         //$this->loadTranslationsFrom(__DIR__ . '/resources/lang', 'web');
@@ -33,14 +28,14 @@ class SrpServiceProvider extends ServiceProvider
 
     public function register()
     {
-
         $this->mergeConfigurations();
     }
 
     private function mergeConfigurations()
     {
         $this->mergeConfigFrom(
-            __DIR__ . '/config/package.sidebar.php', 'package.sidebar'
+            __DIR__.'/config/package.sidebar.php',
+            'package.sidebar'
         );
     }
 
@@ -52,8 +47,7 @@ class SrpServiceProvider extends ServiceProvider
          * or use Laravel Mix to copy the folder to public repo of core.
          */
         $this->publishes([
-            __DIR__ . '/resources/js' => resource_path('js'),
+            __DIR__.'/resources/js' => resource_path('js'),
         ], 'srp');
     }
-
 }

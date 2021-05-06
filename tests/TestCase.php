@@ -1,18 +1,16 @@
 <?php
 
-
 namespace Seatplus\Srp\Tests;
 
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Queue;
 use Inertia\Inertia;
 use Inertia\ServiceProvider as InertiaServiceProviderAlias;
-use Laravel\Horizon\HorizonServiceProvider;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Seatplus\Auth\AuthenticationServiceProvider;
 use Seatplus\Auth\Models\Permissions\Permission;
-use Seatplus\Eveapi\EveapiServiceProvider;
 use Seatplus\Auth\Models\User;
+use Seatplus\Eveapi\EveapiServiceProvider;
 use Seatplus\Srp\SrpServiceProvider;
 use Seatplus\Web\Http\Middleware\Authenticate;
 use Seatplus\Web\Tests\Stubs\Kernel;
@@ -21,14 +19,12 @@ use Spatie\Permission\PermissionRegistrar;
 
 abstract class TestCase extends OrchestraTestCase
 {
-
     protected User $test_user;
 
     protected $test_character;
 
     protected function setUp(): void
     {
-
         parent::setUp();
 
         //Setup Inertia Root View
@@ -47,7 +43,7 @@ abstract class TestCase extends OrchestraTestCase
 
         $this->test_character = $this->test_user->characters->first();
 
-        $this->app->instance('path.public', __DIR__ .'/../src/public');
+        $this->app->instance('path.public', __DIR__.'/../src/public');
 
         Permission::findOrCreate('superuser');
     }
@@ -55,7 +51,8 @@ abstract class TestCase extends OrchestraTestCase
     /**
      * Resolve application HTTP Kernel implementation.
      *
-     * @param  \Illuminate\Foundation\Application  $app
+     * @param \Illuminate\Foundation\Application $app
+     *
      * @return void
      */
     protected function resolveApplicationHttpKernel($app)
@@ -66,7 +63,7 @@ abstract class TestCase extends OrchestraTestCase
     /**
      * Get application providers.
      *
-     * @param  \Illuminate\Foundation\Application  $app
+     * @param \Illuminate\Foundation\Application $app
      *
      * @return array
      */
@@ -77,12 +74,12 @@ abstract class TestCase extends OrchestraTestCase
             WebServiceProvider::class,
             EveapiServiceProvider::class,
             InertiaServiceProviderAlias::class,
-            AuthenticationServiceProvider::class
+            AuthenticationServiceProvider::class,
         ];
     }
 
     /**
-     * @param \Illuminate\Foundation\Application  $app
+     * @param \Illuminate\Foundation\Application $app
      */
     private function setupDatabase($app)
     {
@@ -94,7 +91,8 @@ abstract class TestCase extends OrchestraTestCase
     /**
      * Define environment setup.
      *
-     * @param  \Illuminate\Foundation\Application  $app
+     * @param \Illuminate\Foundation\Application $app
+     *
      * @return void
      */
     protected function getEnvironmentSetUp($app)
@@ -120,15 +118,14 @@ abstract class TestCase extends OrchestraTestCase
         config()->set('inertia.testing.page_paths', array_merge(
             config()->get('inertia.testing.page_paths', []),
             [
-                realpath(__DIR__ . '/../src/resources/js/Pages'),
-                realpath(__DIR__ . '/../src/resources/js/Shared')
+                realpath(__DIR__.'/../src/resources/js/Pages'),
+                realpath(__DIR__.'/../src/resources/js/Shared'),
             ],
         ));
     }
 
     protected function givePermissionsToTestUser(array $array)
     {
-
         foreach ($array as $string) {
             $permission = Permission::findOrCreate($string);
 
@@ -138,5 +135,4 @@ abstract class TestCase extends OrchestraTestCase
         // now re-register all the roles and permissions
         $this->app->make(PermissionRegistrar::class)->registerPermissions();
     }
-
 }
