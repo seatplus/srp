@@ -57,13 +57,14 @@ class RequestController extends Controller
             'killmailUrl' => ['required', 'string'],
         ]);
 
-        $collection = Str::of($request->get('killmailUrl'))
-            ->after('https://esi.evetech.net/latest/killmails/')
+        $exploded = Str::of($request->get('killmailUrl'))
             ->finish('/')
             ->beforeLast('/')
             ->explode('/');
 
-        $killmail_id = $collection->first();
+        $collection = $exploded->slice(5,2);
+
+        $killmail_id = (int) $collection->first();
         $killmail_hash = $collection->last();
 
         throw_if(SrpRequest::find($killmail_hash), 'SRP Request has already been submitted');
