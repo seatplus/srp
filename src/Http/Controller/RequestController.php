@@ -54,15 +54,17 @@ class RequestController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'killmailUrl' => ['required', 'string'],
+            'killmailUrl' => ['required', 'url'],
         ]);
 
-        $exploded = Str::of($request->get('killmailUrl'))
+        $exploded = Str::of(parse_url($request->get('killmailUrl'), PHP_URL_PATH))
             ->finish('/')
             ->beforeLast('/')
             ->explode('/');
 
-        $collection = $exploded->slice(5, 2);
+        $collection = $exploded->slice(3,2);
+
+        throw_unless($collection->count() === 2, 'invalid url provided');
 
         $killmail_id = (int) $collection->first();
         $killmail_hash = $collection->last();
