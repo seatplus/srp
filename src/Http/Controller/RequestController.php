@@ -62,7 +62,7 @@ class RequestController extends Controller
             ->beforeLast('/')
             ->explode('/');
 
-        $collection = $exploded->slice(5,2);
+        $collection = $exploded->slice(5, 2);
 
         $killmail_id = (int) $collection->first();
         $killmail_hash = $collection->last();
