@@ -62,7 +62,7 @@ class RequestController extends Controller
             ->beforeLast('/')
             ->explode('/');
 
-        $collection = $exploded->slice(3,2);
+        $collection = $exploded->slice(3, 2);
 
         throw_unless($collection->count() === 2, 'invalid url provided');
 
