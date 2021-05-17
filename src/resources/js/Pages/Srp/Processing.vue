@@ -71,7 +71,7 @@ export default {
 
         watch(status, (newValue, oldValue) => {
             if(newValue === 'finished')
-                Inertia.get(route('view.srp.request', this.id))
+                Inertia.get(route('view.srp.request', props.id))
             if(oldValue === 'pending')
                 clearInterval(updateStatus.value)
 
