@@ -14,7 +14,7 @@
             />
           </div>
           <div class="ml-4">
-            <h3 class="text-md leading-6 font-medium text-gray-900">
+            <h3 v-if="ship" class="text-md leading-6 font-medium text-gray-900">
               {{ ship.name }}
             </h3>
           </div>
@@ -24,7 +24,7 @@
         <label class="block text-sm font-medium text-gray-700 sm:hidden">
           System
         </label>
-        {{ `${system.name} (${system.security_status.toFixed(1)}) ${region}` }}
+        <span v-if="system">{{ `${system.name} (${system.security_status.toFixed(1)}) ${region}` }}</span>
       </div>
       <div class="text-sm font-medium text-gray-500 px-6 sm:py-1 sm:self-center">
         <label class="block text-sm font-medium text-gray-700 sm:hidden">
