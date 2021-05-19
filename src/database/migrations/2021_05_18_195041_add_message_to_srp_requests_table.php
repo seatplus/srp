@@ -53,7 +53,6 @@ class AddMessageToSrpRequestsTable extends Migration
     public function down()
     {
         Schema::table('srp_requests', function (Blueprint $table) {
-
         });
     }
 }
