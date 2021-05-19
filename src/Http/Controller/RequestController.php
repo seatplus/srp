@@ -152,7 +152,7 @@ class RequestController extends Controller
             'sum' => ['required', 'numeric'],
             'killmail_hash' => ['required', 'string', 'exists:srp_requests,id'],
             'decision' => ['required', 'bool'],
-            'message' => ['string']
+            'message' => ['string'],
         ]);
 
         $srp_request = SrpRequest::find($id);
