@@ -152,11 +152,13 @@ class RequestController extends Controller
             'sum' => ['required', 'numeric'],
             'killmail_hash' => ['required', 'string', 'exists:srp_requests,id'],
             'decision' => ['required', 'bool'],
+            'message' => ['string']
         ]);
 
         $srp_request = SrpRequest::find($id);
         $srp_request->status = $request->get('decision') ? 'accepted' : 'denied';
         $srp_request->reimbursement = $request->get('sum');
+        $srp_request->message = $request->get('message');
         $srp_request->save();
 
         if ($srp_request->user_id === auth()->user()->getAuthIdentifier()) {

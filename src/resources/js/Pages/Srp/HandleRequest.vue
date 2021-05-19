@@ -96,26 +96,61 @@
       Submit SRP request
     </inertia-link>
 
-    <span v-show="step === 2 && canEdit" class="relative z-0 inline-flex shadow-sm rounded-md w-full">
-      <button
-        type="button"
-        :disabled="form.processing"
-        class="relative justify-center inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 w-full"
-        @click="handleRequest(true)"
+    <div
+      v-show="step === 2 && canEdit"
+      class="space-y-4"
+    >
+      <div class="sm:col-span-2">
+        <label
+          for="message"
+          class="block text-sm font-medium text-gray-700"
+        >
+          Message
+        </label>
+        <div class="mt-1">
+          <textarea
+            id="message"
+            v-model="form.message"
+            name="message"
+            rows="4"
+            class="py-3 px-4 block w-full shadow-sm focus:ring-indigo-500 focus:border-indigo-500 border-gray-300 rounded-md"
+          />
+        </div>
+      </div>
+
+      <span
+              
+        class="relative z-0 inline-flex shadow-sm rounded-md w-full"
       >
-        <CheckCircleIcon class="h-6 w-6 mr-1 flex-shrink-0 text-green-600" />
-        Approve
-      </button>
-      <button
-        type="button"
-        :disabled="form.processing"
-        class="-ml-px relative justify-center inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 w-full"
-        @click="handleRequest(false)"
-      >
-        <XCircleIcon class="h-6 w-6 mr-1 flex-shrink-0 text-red-600" />
-        Deny
-      </button>
-    </span>
+        <button
+          type="button"
+          :disabled="form.processing"
+          class="relative justify-center inline-flex items-center px-4 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 w-full"
+          @click="handleRequest(true)"
+        >
+          <CheckCircleIcon class="h-6 w-6 mr-1 flex-shrink-0 text-green-600" />
+          Approve
+        </button>
+        <button
+          type="button"
+          :disabled="form.processing"
+          class="-ml-px relative justify-center inline-flex items-center px-4 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50 focus:z-10 focus:outline-none focus:ring-1 focus:ring-indigo-500 focus:border-indigo-500 w-full"
+          @click="handleRequest(false)"
+        >
+          <XCircleIcon class="h-6 w-6 mr-1 flex-shrink-0 text-red-600" />
+          Deny
+        </button>
+      </span>
+    </div>
+
+    <div v-show="step === 3 && srpRequest.message">
+      <dt class="text-xs font-semibold tracking-wide uppercase">
+        Message
+      </dt>
+      <dd class="text-sm text-gray-500">
+        {{ srpRequest.message }}
+      </dd>
+    </div>
   </div>
 </template>
 
@@ -154,6 +189,7 @@ export default {
 
         const form = useForm({
             sum: 0,
+            message: '',
             killmail_hash: props.srpRequest.id
         })
 
