@@ -1,14 +1,31 @@
 
 <template>
-  <nav aria-label="Progress">
+  <h3 class="text-lg leading-6 font-medium text-gray-900">
+    Steps
+  </h3>
+  <nav
+    class="mt-1"
+    aria-label="Progress"
+  >
     <ol class="overflow-hidden">
-      <li v-for="(step, stepIdx) in steps" :key="step.name" :class="[stepIdx !== steps.length - 1 ? 'pb-10' : '', 'relative']">
+      <li
+        v-for="(step, stepIdx) in steps"
+        :key="step.name"
+        :class="[stepIdx !== steps.length - 1 ? 'pb-10' : '', 'relative']"
+      >
         <template v-if="step.status === 'complete'">
-          <div v-if="(stepIdx !== steps.length - 1)" class="-ml-px absolute mt-0.5 top-4 left-4 w-0.5 h-full bg-indigo-600" aria-hidden="true" />
+          <div
+            v-if="(stepIdx !== steps.length - 1)"
+            class="-ml-px absolute mt-0.5 top-4 left-4 w-0.5 h-full bg-indigo-600"
+            aria-hidden="true"
+          />
           <div class="relative flex items-start group">
             <span class="h-9 flex items-center">
               <span class="relative z-10 w-8 h-8 flex items-center justify-center bg-indigo-600 rounded-full group-hover:bg-indigo-800">
-                <CheckIcon class="w-5 h-5 text-white" aria-hidden="true" />
+                <CheckIcon
+                  class="w-5 h-5 text-white"
+                  aria-hidden="true"
+                />
               </span>
             </span>
             <span class="ml-4 min-w-0 flex flex-col">
@@ -17,10 +34,23 @@
             </span>
           </div>
         </template>
-        <template v-else-if="step.status === 'current'" condition="step.status === 'current'">
-          <div v-if="(stepIdx !== steps.length - 1)" class="-ml-px absolute mt-0.5 top-4 left-4 w-0.5 h-full bg-gray-300" aria-hidden="true" />
-          <div class="relative flex items-start group" aria-current="step">
-            <span class="h-9 flex items-center" aria-hidden="true">
+        <template
+          v-else-if="step.status === 'current'"
+          condition="step.status === 'current'"
+        >
+          <div
+            v-if="(stepIdx !== steps.length - 1)"
+            class="-ml-px absolute mt-0.5 top-4 left-4 w-0.5 h-full bg-gray-300"
+            aria-hidden="true"
+          />
+          <div
+            class="relative flex items-start group"
+            aria-current="step"
+          >
+            <span
+              class="h-9 flex items-center"
+              aria-hidden="true"
+            >
               <span class="relative z-10 w-8 h-8 flex items-center justify-center bg-white border-2 border-indigo-600 rounded-full">
                 <span class="h-2.5 w-2.5 bg-indigo-600 rounded-full" />
               </span>
@@ -32,9 +62,16 @@
           </div>
         </template>
         <template v-else>
-          <div v-if="(stepIdx !== steps.length - 1)" class="-ml-px absolute mt-0.5 top-4 left-4 w-0.5 h-full bg-gray-300" aria-hidden="true" />
+          <div
+            v-if="(stepIdx !== steps.length - 1)"
+            class="-ml-px absolute mt-0.5 top-4 left-4 w-0.5 h-full bg-gray-300"
+            aria-hidden="true"
+          />
           <div class="relative flex items-start group">
-            <span class="h-9 flex items-center" aria-hidden="true">
+            <span
+              class="h-9 flex items-center"
+              aria-hidden="true"
+            >
               <span class="relative z-10 w-8 h-8 flex items-center justify-center bg-white border-2 border-gray-300 rounded-full group-hover:border-gray-400">
                 <span class="h-2.5 w-2.5 bg-transparent rounded-full group-hover:bg-gray-300" />
               </span>
