@@ -170,12 +170,13 @@ class RequestController extends Controller
 
     public function delete(SrpRequest $request)
     {
-
-        if($request->user_id !== auth()->user()->getAuthIdentifier())
+        if ($request->user_id !== auth()->user()->getAuthIdentifier()) {
             return response('Not allowed, only creator is allowed to delete a srp request', 403);
+        }
 
-        if($request->status !== 'open')
+        if ($request->status !== 'open') {
             return response('Not allowed, only open srp requests may be deleted', 403);
+        }
 
         $request->delete();
 
