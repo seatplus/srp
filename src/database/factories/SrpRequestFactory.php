@@ -37,7 +37,6 @@ class SrpRequestFactory extends Factory
 
     public function definition()
     {
-
         $killmail = file_get_contents('src/database/factories/19c919549fb5b4359324fc7938b21f2965f1baf0.json');
 
         return [
