@@ -51,7 +51,7 @@
         <div class="flex justify-between">
           <span>{{ request.status }}</span>
 
-          <inertia-link :href="$route('delete.srp.request', request.id)" as="button" method="delete" class="text-indigo-600 hover:text-indigo-700">
+          <inertia-link v-if="request.status === 'open'" :href="$route('delete.srp.request', request.id)" as="button" method="delete" class="text-indigo-600 hover:text-indigo-700">
             <XCircleIcon class="h-5 w-5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" />
           </inertia-link>
 
