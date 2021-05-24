@@ -47,7 +47,15 @@
         <label class="block text-sm font-medium text-gray-700 sm:hidden">
           Status
         </label>
-        {{ request.status }}
+
+        <div class="flex justify-between">
+          <span>{{ request.status }}</span>
+
+          <inertia-link :href="$route('delete.srp.request', request.id)" as="button" method="delete" class="text-indigo-600 hover:text-indigo-700">
+            <XCircleIcon class="h-5 w-5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" />
+          </inertia-link>
+
+        </div>
       </div>
     </div>
   </inertia-link>
@@ -59,10 +67,11 @@ import {computed, onBeforeMount, ref} from "vue";
 import axios from "axios";
 import route from 'ziggy'
 import EntityBlock from "@/Shared/Layout/Eve/EntityBlock";
+import { XCircleIcon } from '@heroicons/vue/solid'
 
 export default {
     name: "SubmittedRequestEntry",
-    components: {EveImage, EntityBlock},
+    components: {EveImage, EntityBlock, XCircleIcon},
     props: {
         request: {
             type: Object,

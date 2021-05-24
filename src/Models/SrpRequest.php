@@ -58,6 +58,15 @@ class SrpRequest extends Model
      */
     protected $keyType = 'string';
 
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'user_id' => 'integer',
+    ];
+
     protected static function newFactory()
     {
         return SrpRequestFactory::new();

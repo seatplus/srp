@@ -29,4 +29,51 @@ class SrpRequestTest extends TestCase
 
         Bus::assertBatched(fn($batch) => $batch->jobs->first(fn($job) => $job instanceof KillmailJob));
     }
+
+    /** @test */
+    public function oneCanDeleteOpenOwnedSRPRequests()
+    {
+        $request = SrpRequest::factory()->create([
+            'user_id' => $this->test_user->id
+        ]);
+
+        $this->assertEquals($this->test_user->id, $request->refresh()->user_id);
+        $this->assertEquals('open', $request->refresh()->status);
+
+        $response = $this->actingAs($this->test_user)
+            ->delete(route('delete.srp.request', $request->refresh()->id))
+            ->assertRedirect();
+
+    }
+
+    /** @test */
+    public function oneCanNotDeleteSubmittedOwnedSRPRequests()
+    {
+        $request = SrpRequest::factory()->create([
+            'user_id' => $this->test_user->id,
+            'status' => 'submitted'
+        ]);
+
+        $this->assertEquals($this->test_user->id, $request->refresh()->user_id);
+        $this->assertEquals('submitted', $request->refresh()->status);
+
+        $response = $this->actingAs($this->test_user)
+            ->delete(route('delete.srp.request', $request->refresh()->id))
+            ->assertForbidden();
+    }
+
+    /** @test */
+    public function oneCanNotDeleteOpenForeignSRPRequests()
+    {
+        $request = SrpRequest::factory()->create();
+
+        $this->assertNotEquals($this->test_user->id, $request->refresh()->user_id);
+        $this->assertEquals('open', $request->refresh()->status);
+
+        $response = $this->actingAs($this->test_user)
+            ->delete(route('delete.srp.request', $request->refresh()->id))
+            ->assertForbidden();
+    }
+
+
 }
