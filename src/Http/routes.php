@@ -25,6 +25,7 @@
  *
  */
 
+use Illuminate\Support\Facades\Route;
 use Seatplus\Srp\Http\Controller\AdminController;
 use Seatplus\Srp\Http\Controller\KillmailController;
 use Seatplus\Srp\Http\Controller\ReceiptController;
@@ -38,6 +39,7 @@ Route::middleware(['web', 'auth', CheckRequiredScopes::class])
         Route::post('', [RequestController::class, 'store'])->name('store.srp.request');
 
         Route::get('/view/{id}', [RequestController::class, 'viewRequest'])->name('view.srp.request');
+        Route::delete('/{request}', [RequestController::class, 'delete'])->name('delete.srp.request');
         Route::post('/submit/{id}', [RequestController::class, 'submitRequest'])->name('submit.srp.request');
         Route::post('/review/{id}', [RequestController::class, 'handleRequest'])
             ->middleware('permission:accept or reject srp requests')
