@@ -43,9 +43,7 @@ abstract class TestCase extends OrchestraTestCase
         $this->setupDatabase($this->app);
 
         /** @noinspection PhpFieldAssignmentTypeMismatchInspection */
-        $this->test_user = Event::fakeFor(function () {
-            return User::factory()->create();
-        });
+        $this->test_user = Event::fakeFor(fn() => User::factory()->create());
 
         $this->test_character = $this->test_user->characters->first();
 
@@ -62,7 +60,7 @@ abstract class TestCase extends OrchestraTestCase
      */
     protected function resolveApplicationHttpKernel($app)
     {
-        $app->singleton('Illuminate\Contracts\Http\Kernel', Kernel::class);
+        $app->singleton(\Illuminate\Contracts\Http\Kernel::class, Kernel::class);
     }
 
     /**
