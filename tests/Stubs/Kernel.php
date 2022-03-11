@@ -4,10 +4,11 @@
 namespace Seatplus\Srp\Tests\Stubs;
 
 
+use Illuminate\Session\Middleware\StartSession;
 use Orchestra\Testbench\Http\Middleware\RedirectIfAuthenticated;
 use Seatplus\Web\Http\Middleware\Authenticate;
 
-class Kernel extends \Orchestra\Testbench\Http\Kernel
+class Kernel extends \Orchestra\Testbench\Foundation\Http\Kernel
 {
     /**
      * The application's route middleware.
@@ -21,4 +22,14 @@ class Kernel extends \Orchestra\Testbench\Http\Kernel
         'guest' => RedirectIfAuthenticated::class,
     ];
 
+    /**
+     * The application's global HTTP middleware stack.
+     *
+     * These middleware are run during every request to your application.
+     *
+     * @var array
+     */
+    protected $middleware = [
+        StartSession::class,
+    ];
 }

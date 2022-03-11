@@ -17,9 +17,12 @@ use Seatplus\Srp\Tests\Stubs\Kernel;
 use Seatplus\Web\Http\Middleware\Authenticate;
 use Seatplus\Web\WebServiceProvider;
 use Spatie\Permission\PermissionRegistrar;
+use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 
 abstract class TestCase extends OrchestraTestCase
 {
+
+    use LazilyRefreshDatabase;
 
     protected User $test_user;
 
@@ -46,8 +49,7 @@ abstract class TestCase extends OrchestraTestCase
 
         $this->test_character = $this->test_user->characters->first();
 
-        $this->app->instance('path.public', __DIR__ .'/../vendor/seatplus/web/src/public');
-
+        $this->app->instance('path.public', __DIR__ .'/Stubs');
 
         Permission::findOrCreate('superuser');
     }
@@ -88,7 +90,7 @@ abstract class TestCase extends OrchestraTestCase
     {
         // Path to our migrations to load
         //$this->loadMigrationsFrom(__DIR__ . '/database/migrations');
-        $this->artisan('migrate', ['--database' => 'testbench']);
+        $this->artisan('migrate');
     }
 
     /**
@@ -99,13 +101,7 @@ abstract class TestCase extends OrchestraTestCase
      */
     protected function getEnvironmentSetUp($app)
     {
-        // Use memory SQLite, cleans it self up
-        $app['config']->set('database.default', 'testbench');
-        $app['config']->set('database.connections.testbench', [
-            'driver'   => 'sqlite',
-            'database' => ':memory:',
-            'prefix'   => '',
-        ]);
+        $app['config']->set('database.default', 'mysql');
 
         config(['app.debug' => true]);
 

@@ -24,14 +24,13 @@
     "php": "^8.0",
     "ext-json": "*",
     "ext-redis": "*",
-    "laravel/framework": "^8.0",
-    "seatplus/web": "^0.9.2"
+    "seatplus/web": "^1.0"
   },
   "require-dev": {
-    "orchestra/testbench": "^6.10",
-    "nunomaduro/collision": "^5.3",
-    "spatie/phpunit-watcher": "^1.11",
-    "rector/rector": "^0.9.2",
+    "orchestra/testbench": "^7.1",
+    "nunomaduro/collision": "^6.1",
+    "rector/rector": "^0.12.17",
+    "pestphp/pest": "^1.20",
     "brianium/paratest": "^6.2"
   },
   "extra": {
@@ -42,7 +41,12 @@
     }
   },
   "scripts": {
-    "watch": "vendor/bin/phpunit-watcher watch",
-    "parallel": "vendor/bin/testbench package:test --parallel --no-coverage"
+    "test": "vendor/bin/pest",
+    "test-coverage": "XDEBUG_MODE=coverage ./vendor/bin/pest --coverage"
+  },
+  "config": {
+    "allow-plugins": {
+      "pestphp/pest-plugin": true
+    }
   }
 }

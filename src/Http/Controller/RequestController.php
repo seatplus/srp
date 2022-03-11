@@ -168,8 +168,11 @@ class RequestController extends Controller
         return redirect()->route('srp.request');
     }
 
-    public function delete(SrpRequest $request)
+    public function delete(string $request)
     {
+
+        $request = SrpRequest::findOrFail($request);
+
         if ($request->user_id !== auth()->user()->getAuthIdentifier()) {
             return response('Not allowed, only creator is allowed to delete a srp request', 403);
         }
