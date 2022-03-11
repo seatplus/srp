@@ -136,8 +136,10 @@ class RequestController extends Controller
         $srp_request = SrpRequest::find($id);
         throw_unless($srp_request, 'unknown srp request id');
 
-        throw_unless($srp_request->user_id === auth()->user()->getAuthIdentifier() || auth()->user()->can('accept or reject srp requests'),
-            'you are not allowed to submit this request');
+        throw_unless(
+            $srp_request->user_id === auth()->user()->getAuthIdentifier() || auth()->user()->can('accept or reject srp requests'),
+            'you are not allowed to submit this request'
+        );
 
         $srp_request->status = 'submitted';
         $srp_request->reimbursement = request()->get('reimbursement');
@@ -170,7 +172,6 @@ class RequestController extends Controller
 
     public function delete(string $request)
     {
-
         $request = SrpRequest::findOrFail($request);
 
         if ($request->user_id !== auth()->user()->getAuthIdentifier()) {
@@ -209,7 +210,8 @@ class RequestController extends Controller
         $batch = Bus::batch(
             [
                 new KillmailJob($killmail_id, $killmail_hash),
-            ])
+            ]
+        )
             ->catch(fn ($e) => logger()->debug($e))
             ->then(fn (Batch $batch) => cache()->forget($killmail_hash))
             ->name('Process Killmail Job')

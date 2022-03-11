@@ -64,7 +64,8 @@ class SrpServiceProvider extends ServiceProvider
         );
 
         $this->mergeConfigFrom(
-            __DIR__ . '/config/package.permissions.php', 'web.permissions'
+            __DIR__ . '/config/package.permissions.php',
+            'web.permissions'
         );
     }
 

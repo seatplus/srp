@@ -3,6 +3,7 @@
 
 namespace Seatplus\Srp\Tests;
 
+use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Queue;
 use Inertia\Inertia;
@@ -10,18 +11,16 @@ use Inertia\ServiceProvider as InertiaServiceProviderAlias;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
 use Seatplus\Auth\AuthenticationServiceProvider;
 use Seatplus\Auth\Models\Permissions\Permission;
-use Seatplus\Eveapi\EveapiServiceProvider;
 use Seatplus\Auth\Models\User;
+use Seatplus\Eveapi\EveapiServiceProvider;
 use Seatplus\Srp\SrpServiceProvider;
 use Seatplus\Srp\Tests\Stubs\Kernel;
 use Seatplus\Web\Http\Middleware\Authenticate;
 use Seatplus\Web\WebServiceProvider;
 use Spatie\Permission\PermissionRegistrar;
-use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 
 abstract class TestCase extends OrchestraTestCase
 {
-
     use LazilyRefreshDatabase;
 
     protected User $test_user;
@@ -30,7 +29,6 @@ abstract class TestCase extends OrchestraTestCase
 
     protected function setUp(): void
     {
-
         parent::setUp();
 
         //Setup Inertia Root View
@@ -43,7 +41,7 @@ abstract class TestCase extends OrchestraTestCase
         $this->setupDatabase($this->app);
 
         /** @noinspection PhpFieldAssignmentTypeMismatchInspection */
-        $this->test_user = Event::fakeFor(fn() => User::factory()->create());
+        $this->test_user = Event::fakeFor(fn () => User::factory()->create());
 
         $this->test_character = $this->test_user->characters->first();
 
@@ -77,7 +75,7 @@ abstract class TestCase extends OrchestraTestCase
             WebServiceProvider::class,
             EveapiServiceProvider::class,
             InertiaServiceProviderAlias::class,
-            AuthenticationServiceProvider::class
+            AuthenticationServiceProvider::class,
         ];
     }
 
@@ -115,14 +113,13 @@ abstract class TestCase extends OrchestraTestCase
             config()->get('inertia.testing.page_paths', []),
             [
                 realpath(__DIR__ . '/../src/resources/js/Pages'),
-                realpath(__DIR__ . '/../src/resources/js/Shared')
+                realpath(__DIR__ . '/../src/resources/js/Shared'),
             ],
         ));
     }
 
     protected function givePermissionsToTestUser(array $array)
     {
-
         foreach ($array as $string) {
             $permission = Permission::findOrCreate($string);
 
@@ -132,5 +129,4 @@ abstract class TestCase extends OrchestraTestCase
         // now re-register all the roles and permissions
         $this->app->make(PermissionRegistrar::class)->registerPermissions();
     }
-
 }
