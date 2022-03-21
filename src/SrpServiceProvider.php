@@ -73,11 +73,11 @@ class SrpServiceProvider extends ServiceProvider
     {
         /*
          * to publish assets one can run:
-         * php artisan vendor:publish --tag=srp --force
+         * php artisan vendor:publish --tag=web --force
          * or use Laravel Mix to copy the folder to public repo of core.
          */
         $this->publishes([
             __DIR__ . '/resources/js' => resource_path('js'),
-        ], 'srp');
+        ], 'web');
     }
 }
