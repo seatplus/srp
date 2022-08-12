@@ -93,6 +93,7 @@ class AdminController extends Controller
     {
         $requests = SrpReceipt::query()
             ->with(['srp_requests' => fn ($query) => $query->with('killmail', 'killmail.ship', 'killmail.system'), 'accountant.main_character', 'receiver.main_character'])
+            ->orderByDesc('created_at')
             ->paginate();
 
         return inertia('Srp/Admin/Receipts', [
