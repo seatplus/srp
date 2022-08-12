@@ -4,9 +4,9 @@
 namespace Seatplus\Srp\Tests\Stubs;
 
 use Illuminate\Session\Middleware\StartSession;
+use Orchestra\Testbench\Foundation\Http\Kernel as OrchestraHttpKernel;
 use Orchestra\Testbench\Http\Middleware\RedirectIfAuthenticated;
 use Seatplus\Web\Http\Middleware\Authenticate;
-use Orchestra\Testbench\Foundation\Http\Kernel as OrchestraHttpKernel;
 
 class Kernel extends OrchestraHttpKernel
 {
