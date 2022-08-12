@@ -67,11 +67,6 @@ class SrpRequest extends Model
         'user_id' => 'integer',
     ];
 
-    protected static function newFactory()
-    {
-        return SrpRequestFactory::new();
-    }
-
     public function killmail()
     {
         return $this->belongsTo(Killmail::class, 'id', 'killmail_hash');

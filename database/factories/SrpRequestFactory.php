@@ -25,7 +25,7 @@
  *
  */
 
-namespace Seatplus\Srp\database\factories;
+namespace Seatplus\Srp\Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Seatplus\Auth\Models\User;
@@ -37,7 +37,7 @@ class SrpRequestFactory extends Factory
 
     public function definition()
     {
-        $killmail = file_get_contents('src/database/factories/19c919549fb5b4359324fc7938b21f2965f1baf0.json');
+        $killmail = file_get_contents('database/factories/19c919549fb5b4359324fc7938b21f2965f1baf0.json');
 
         return [
             'id' => md5($killmail),

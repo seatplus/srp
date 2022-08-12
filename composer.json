@@ -12,7 +12,8 @@
   ],
   "autoload": {
     "psr-4": {
-      "Seatplus\\Srp\\": "src/"
+      "Seatplus\\Srp\\": "src/",
+      "Seatplus\\Srp\\Database\\Factories\\": "database/factories"
     }
   },
   "autoload-dev": {
