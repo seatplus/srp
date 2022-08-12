@@ -83,7 +83,7 @@
       Calculating value
     </button>
 
-    <inertia-link
+    <Link
       v-show="isReady && canEdit && step===1"
       as="button"
       :href="$route('submit.srp.request', srpRequest.id)"
@@ -94,7 +94,7 @@
     >
       <CheckCircleIcon class="-ml-1 mr-3 h-5 w-5 text-white" />
       Submit SRP request
-    </inertia-link>
+    </Link>
 
     <div
       v-show="step === 2 && canEdit"
@@ -157,10 +157,11 @@
 <script>
 import {CheckCircleIcon, XCircleIcon, PencilAltIcon} from '@heroicons/vue/solid'
 import {computed, ref } from "vue";
-import {useForm} from "@inertiajs/inertia-vue3";
+import {useForm, Link} from "@inertiajs/inertia-vue3";
+
 export default {
     name: "HandleRequest",
-    components: {CheckCircleIcon, XCircleIcon, PencilAltIcon},
+    components: {CheckCircleIcon, XCircleIcon, PencilAltIcon, Link},
     props: {
         isReady: {
             type: Boolean,

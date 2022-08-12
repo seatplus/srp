@@ -1,5 +1,5 @@
 <template>
-  <inertia-link :href="$route('view.srp.request', request.id)">
+  <Link :href="$route('view.srp.request', request.id)">
     <div class="bg-white grid grid-cols-2 sm:grid-cols-5 sm:gap-1 grid-flow-row hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
       <div class="px-6 py-4 sm:py-1 self-center truncate">
         <label class="block text-sm font-medium text-gray-700 sm:hidden">
@@ -51,14 +51,14 @@
         <div class="flex justify-between">
           <span>{{ request.status }}</span>
 
-          <inertia-link v-if="request.status === 'open'" :href="$route('delete.srp.request', request.id)" as="button" method="delete" class="text-indigo-600 hover:text-indigo-700">
+          <Link v-if="request.status === 'open'" :href="$route('delete.srp.request', request.id)" as="button" method="delete" class="text-indigo-600 hover:text-indigo-700">
             <XCircleIcon class="h-5 w-5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" />
-          </inertia-link>
+          </Link>
 
         </div>
       </div>
     </div>
-  </inertia-link>
+  </Link>
 </template>
 
 <script>
@@ -68,10 +68,11 @@ import axios from "axios";
 import route from 'ziggy'
 import EntityBlock from "@/Shared/Layout/Eve/EntityBlock";
 import { XCircleIcon } from '@heroicons/vue/solid'
+import { Link } from "@inertiajs/inertia-vue3";
 
 export default {
     name: "SubmittedRequestEntry",
-    components: {EveImage, EntityBlock, XCircleIcon},
+    components: {EveImage, EntityBlock, XCircleIcon, Link},
     props: {
         request: {
             type: Object,

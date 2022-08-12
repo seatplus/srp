@@ -31,7 +31,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Seatplus\Auth\Models\User;
 use Seatplus\Eveapi\Models\Killmails\Killmail;
-use Seatplus\Srp\database\factories\SrpRequestFactory;
 
 class SrpRequest extends Model
 {
@@ -66,11 +65,6 @@ class SrpRequest extends Model
     protected $casts = [
         'user_id' => 'integer',
     ];
-
-    protected static function newFactory()
-    {
-        return SrpRequestFactory::new();
-    }
 
     public function killmail()
     {

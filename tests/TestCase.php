@@ -3,6 +3,7 @@
 
 namespace Seatplus\Srp\Tests;
 
+use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Queue;
@@ -31,10 +32,15 @@ abstract class TestCase extends OrchestraTestCase
     {
         parent::setUp();
 
-        //Setup Inertia Root View
+        // Setup factories
+        Factory::guessFactoryNamesUsing(
+            fn (string $modelName) => 'Seatplus\\Srp\\Database\\Factories\\'.class_basename($modelName).'Factory'
+        );
+
+        // Setup Inertia Root View
         Inertia::setRootView('web::app');
 
-        //Do not use the queue
+        // Do not use the queue
         Queue::fake();
 
         // setup database
@@ -112,8 +118,8 @@ abstract class TestCase extends OrchestraTestCase
         config()->set('inertia.testing.page_paths', array_merge(
             config()->get('inertia.testing.page_paths', []),
             [
-                realpath(__DIR__ . '/../src/resources/js/Pages'),
-                realpath(__DIR__ . '/../src/resources/js/Shared'),
+                realpath(__DIR__ . '/../resources/js/Pages'),
+                realpath(__DIR__ . '/../resources/js/Shared'),
             ],
         ));
     }

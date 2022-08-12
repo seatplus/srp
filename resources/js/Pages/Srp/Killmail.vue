@@ -1,72 +1,74 @@
 <template>
-  <teleport to="#head">
-    <title>{{ title(pageTitle) }}</title>
-  </teleport>
+  <div class="space-y-3">
+    <teleport to="#head">
+      <title>{{ title(pageTitle) }}</title>
+    </teleport>
 
-  <PageHeader>
-    {{ pageTitle }}
-    <div class="flex items-center">
-      <div class="flex -space-x-1 relative z-0 overflow-hidden">
-        <EveImage
-          v-if="ship"
-          :object="ship"
-          :size="256"
-          tailwind_class="relative z-10 h-12 w-12 rounded-full"
-        />
-      </div>
-      <div class="ml-4">
-        <h3 class="text-lg leading-6 font-medium text-gray-900">
-          {{ ship.name }}
-        </h3>
-      </div>
-      <div class="ml-4">
-        <EntityBlock
-          v-if="victim"
-          :entity="victim"
-        />
-      </div>
-    </div>
-  </PageHeader>
-
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-    <div class="col-span-2">
-      <LossRepresentation
-        :location_id="killmail.killmail_id"
-        :container="{destroyed: true, quantity: 1,type_id: ship.type_id, type: ship}"
-        @valueUpdate="addToSum"
-      />
-    </div>
-    <div>
-      <div class="space-y-4">
-        <HandleRequest
-          :is-ready="isReady"
-          :can-edit="canEdit"
-          :step="step"
-          :value="sumValue"
-          :srp-request="srpRequest"
-        />
-
-        <Steps :current-step="step" />
-
-        <div v-if="srpRequest.description">
-          <h3 class="text-lg leading-6 font-medium text-gray-900">
-            Description
-          </h3>
-          <p class="mt-1 max-w-2xl text-sm text-gray-500">
-            {{ srpRequest.description }}
-          </p>
+    <PageHeader>
+      {{ pageTitle }}
+      <div class="flex items-center">
+        <div class="flex -space-x-1 relative z-0 overflow-hidden">
+          <EveImage
+            v-if="ship"
+            :object="ship"
+            :size="256"
+            tailwind_class="relative z-10 h-12 w-12 rounded-full"
+          />
         </div>
-
-        <div v-if="killmail.system">
+        <div class="ml-4">
           <h3 class="text-lg leading-6 font-medium text-gray-900">
-            System
+            {{ ship.name }}
           </h3>
-          <p class="mt-1 max-w-2xl text-sm text-gray-500">
-            {{ ` ${killmail.system.name} (${killmail.system.security_status.toFixed(1)}) ${region}` }}
-          </p>
         </div>
+        <div class="ml-4">
+          <EntityBlock
+            v-if="victim"
+            :entity="victim"
+          />
+        </div>
+      </div>
+    </PageHeader>
 
-        <Attackers :attackers="killmail.attackers" />
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="col-span-2">
+        <LossRepresentation
+          :location_id="killmail.killmail_id"
+          :container="{destroyed: true, quantity: 1,type_id: ship.type_id, type: ship}"
+          @valueUpdate="addToSum"
+        />
+      </div>
+      <div>
+        <div class="space-y-4">
+          <HandleRequest
+            :is-ready="isReady"
+            :can-edit="canEdit"
+            :step="step"
+            :value="sumValue"
+            :srp-request="srpRequest"
+          />
+
+          <Steps :current-step="step" />
+
+          <div v-if="srpRequest.description">
+            <h3 class="text-lg leading-6 font-medium text-gray-900">
+              Description
+            </h3>
+            <p class="mt-1 max-w-2xl text-sm text-gray-500">
+              {{ srpRequest.description }}
+            </p>
+          </div>
+
+          <div v-if="killmail.system">
+            <h3 class="text-lg leading-6 font-medium text-gray-900">
+              System
+            </h3>
+            <p class="mt-1 max-w-2xl text-sm text-gray-500">
+              {{ ` ${killmail.system.name} (${killmail.system.security_status.toFixed(1)}) ${region}` }}
+            </p>
+          </div>
+
+          <Attackers :attackers="killmail.attackers" />
+        </div>
       </div>
     </div>
   </div>

@@ -4,10 +4,11 @@
 namespace Seatplus\Srp\Tests\Stubs;
 
 use Illuminate\Session\Middleware\StartSession;
+use Orchestra\Testbench\Foundation\Http\Kernel as OrchestraHttpKernel;
 use Orchestra\Testbench\Http\Middleware\RedirectIfAuthenticated;
 use Seatplus\Web\Http\Middleware\Authenticate;
 
-class Kernel extends \Orchestra\Testbench\Foundation\Http\Kernel
+class Kernel extends OrchestraHttpKernel
 {
     /**
      * The application's route middleware.

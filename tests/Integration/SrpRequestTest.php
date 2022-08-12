@@ -18,10 +18,12 @@ class SrpRequestTest extends TestCase
 
         $this->assertEmpty(SrpRequest::all());
 
-        $this->actingAs($this->test_user)
+        $response = $this->actingAs($this->test_user)
             ->post(route('store.srp.request'), [
                 'killmailUrl' => 'https://esi.evetech.net/latest/killmails/92281357/19c919549fb5b4359324fc7938b21f2965f1baf0/',
-            ])->assertInertia(fn (AssertableInertia $page) => $page
+            ]);
+
+        $response->assertInertia(fn (AssertableInertia $page) => $page
                 ->component('Srp/Processing'));
 
         $this->assertNotEmpty(SrpRequest::all());
