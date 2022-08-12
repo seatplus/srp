@@ -27,16 +27,23 @@
         </div>
       </div>
       <ul class="divide-y divide-gray-200">
-        <li v-for="request in requests.data" :key="request.id">
+        <li
+          v-for="request in requests.data"
+          :key="request.id"
+        >
           <SubmittedRequestEntry :request="request" />
         </li>
       </ul>
     </div>
-<!--    <div class="px-4 py-5 sm:p-6">
+    <!--    <div class="px-4 py-5 sm:p-6">
 
 
     </div>-->
-    <nav v-if="requests.from" class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6" aria-label="Pagination">
+    <nav
+      v-if="requests.from"
+      class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6"
+      aria-label="Pagination"
+    >
       <div class="hidden sm:block">
         <p class="text-sm text-gray-700">
           Showing
@@ -55,23 +62,32 @@
         </p>
       </div>
       <div class="flex-1 flex justify-between sm:justify-end">
-        <inertia-link v-if="requests.prev_page_url" :href="requests.prev_page_url" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+        <Link
+          v-if="requests.prev_page_url"
+          :href="requests.prev_page_url"
+          class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+        >
           Previous
-        </inertia-link>
-        <inertia-link v-if="requests.next_page_url" :href="requests.next_page_url" class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+        </Link>
+        <Link
+          v-if="requests.next_page_url"
+          :href="requests.next_page_url"
+          class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+        >
           Next
-        </inertia-link>
+        </Link>
       </div>
     </nav>
   </div>
-
 </template>
 
 <script>
 import SubmittedRequestEntry from "./SubmittedRequestEntry";
+import { Link } from "@inertiajs/inertia-vue3";
+
 export default {
     name: "SubmittedRequests",
-    components: {SubmittedRequestEntry},
+    components: {SubmittedRequestEntry, Link},
     props: {
         requests:  {
             type: Object,

@@ -34,7 +34,7 @@
           class="relative z-0 rounded-lg shadow flex divide-x divide-gray-200"
           aria-label="Tabs"
         >
-          <inertia-link
+          <Link
             v-for="(tab, tabIdx) in tabs"
             :key="tab.name"
             :href="tab.href"
@@ -50,7 +50,7 @@
               aria-hidden="true"
               :class="[tab.current ? 'bg-indigo-500' : 'bg-transparent', 'absolute inset-x-0 bottom-0 h-0.5']"
             />
-          </inertia-link>
+          </Link>
         </nav>
       </div>
     </div>
@@ -63,12 +63,11 @@
 import PageHeader from "@/Shared/Layout/PageHeader";
 import Layout from "@/Shared/SidebarLayout/Layout"
 import route from 'ziggy'
-import {ref} from "vue";
-
+import { Link } from "@inertiajs/inertia-vue3";
 
 export default {
     name: "AdminTemplate",
-    components: { PageHeader},
+    components: { PageHeader, Link},
     layout: (h, page) => h(Layout, { activeSidebarElement: route('review.srp.requests') }, [page]),
     props: {
         tabs: {

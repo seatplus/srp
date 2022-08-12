@@ -22,8 +22,11 @@
           </div>
         </div>
         <ul class="divide-y divide-gray-200">
-          <li v-for="receipt in requests.data" :key="receipt.id">
-            <inertia-link :href="$route('view.srp.receipt', receipt.uuid)">
+          <li
+            v-for="receipt in requests.data"
+            :key="receipt.id"
+          >
+            <Link :href="$route('view.srp.receipt', receipt.uuid)">
               <div class="bg-white grid grid-cols-2 sm:grid-cols-4 sm:gap-1 grid-flow-row hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
                 <div class="px-6 py-4 sm:py-1 self-center truncate">
                   <label class="block text-sm font-medium text-gray-700 sm:hidden">
@@ -58,11 +61,9 @@
                     :image-size="5"
                     name-font-size="sm"
                   />
-
                 </div>
-
               </div>
-            </inertia-link>
+            </Link>
           </li>
         </ul>
       </div>
@@ -70,7 +71,11 @@
 
 
           </div>-->
-      <nav v-if="requests.from" class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6" aria-label="Pagination">
+      <nav
+        v-if="requests.from"
+        class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6"
+        aria-label="Pagination"
+      >
         <div class="hidden sm:block">
           <p class="text-sm text-gray-700">
             Showing
@@ -89,12 +94,20 @@
           </p>
         </div>
         <div class="flex-1 flex justify-between sm:justify-end">
-          <inertia-link v-if="requests.prev_page_url" :href="requests.prev_page_url" class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+          <Link
+            v-if="requests.prev_page_url"
+            :href="requests.prev_page_url"
+            class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+          >
             Previous
-          </inertia-link>
-          <inertia-link v-if="requests.next_page_url" :href="requests.next_page_url" class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50">
+          </Link>
+          <Link
+            v-if="requests.next_page_url"
+            :href="requests.next_page_url"
+            class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50"
+          >
             Next
-          </inertia-link>
+          </Link>
         </div>
       </nav>
     </div>
@@ -103,13 +116,13 @@
 
 <script>
 import AdminTemplate from "@/Pages/Srp/Admin/AdminTemplate";
-import SubmittedRequests from "../SubmittedRequests";
+import { Link } from "@inertiajs/inertia-vue3";
 import EntityBlock from "@/Shared/Layout/Eve/EntityBlock";
 import Time from "@/Shared/Time";
 
 export default {
     name: "Receipts",
-    components: {AdminTemplate, EntityBlock, Time},
+    components: {AdminTemplate, EntityBlock, Time, Link},
     props: {
         requests: {
             type: Object,
