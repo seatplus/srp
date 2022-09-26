@@ -40,12 +40,14 @@
       >
         <span>{{ localePrice }}</span>
 
-        <button class="m1" @click="openInput">
-          <PencilAltIcon
+        <button
+          class="m1"
+          @click="openInput"
+        >
+          <PencilSquareIcon
             class="h-5 h-5"
           />
         </button>
-
       </div>
       <div v-else>
         <div class="flex justify-between">
@@ -90,16 +92,15 @@
 </template>
 
 <script>
-import EveImage from "@/Shared/EveImage";
+import EveImage from "@/Shared/EveImage.vue";
 import { useGetPrice } from "@/Functions/useGetPrice";
 import {computed, onBeforeMount, ref, watch} from "vue";
-import { PencilAltIcon, CheckCircleIcon, XCircleIcon } from '@heroicons/vue/solid'
-import { useForm } from '@inertiajs/inertia-vue3'
+import { PencilSquareIcon, CheckCircleIcon, XCircleIcon } from '@heroicons/vue/20/solid'
 import axios from "axios";
 
 export default {
     name: "SlotElement",
-    components: {EveImage, PencilAltIcon, CheckCircleIcon, XCircleIcon},
+    components: {EveImage, PencilSquareIcon, CheckCircleIcon, XCircleIcon},
     props: {
         item: {
             required: true,
@@ -152,7 +153,7 @@ export default {
             if(!this.processing) {
                 this.processing = true
 
-                axios.post(this.$route('post.killmail.item', this.item.id), {
+                axios.post(route('post.killmail.item', this.item.id), {
                     price: this.price
                 })
                     .then(() => this.editMode = false)

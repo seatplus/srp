@@ -82,7 +82,7 @@
 </template>
 
 <script>
-import SubmittedRequestEntry from "./SubmittedRequestEntry";
+import SubmittedRequestEntry from "./SubmittedRequestEntry.vue";
 import { Link } from "@inertiajs/inertia-vue3";
 
 export default {

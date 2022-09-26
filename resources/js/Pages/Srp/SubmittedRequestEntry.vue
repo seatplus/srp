@@ -1,5 +1,5 @@
 <template>
-  <Link :href="$route('view.srp.request', request.id)">
+  <Link :href="route('view.srp.request', request.id)">
     <div class="bg-white grid grid-cols-2 sm:grid-cols-5 sm:gap-1 grid-flow-row hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
       <div class="px-6 py-4 sm:py-1 self-center truncate">
         <label class="block text-sm font-medium text-gray-700 sm:hidden">
@@ -14,7 +14,10 @@
             />
           </div>
           <div class="ml-4">
-            <h3 v-if="ship" class="text-md leading-6 font-medium text-gray-900">
+            <h3
+              v-if="ship"
+              class="text-md leading-6 font-medium text-gray-900"
+            >
               {{ ship.name }}
             </h3>
           </div>
@@ -51,10 +54,15 @@
         <div class="flex justify-between">
           <span>{{ request.status }}</span>
 
-          <Link v-if="request.status === 'open'" :href="$route('delete.srp.request', request.id)" as="button" method="delete" class="text-indigo-600 hover:text-indigo-700">
+          <Link
+            v-if="request.status === 'open'"
+            :href="route('delete.srp.request', request.id)"
+            as="button"
+            method="delete"
+            class="text-indigo-600 hover:text-indigo-700"
+          >
             <XCircleIcon class="h-5 w-5 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" />
           </Link>
-
         </div>
       </div>
     </div>
@@ -62,12 +70,11 @@
 </template>
 
 <script>
-import EveImage from "@/Shared/EveImage";
+import EveImage from "@/Shared/EveImage.vue";
 import {computed, onBeforeMount, ref} from "vue";
 import axios from "axios";
-import route from 'ziggy'
-import EntityBlock from "@/Shared/Layout/Eve/EntityBlock";
-import { XCircleIcon } from '@heroicons/vue/solid'
+import EntityBlock from "@/Shared/Layout/Eve/EntityBlock.vue";
+import { XCircleIcon } from '@heroicons/vue/20/solid'
 import { Link } from "@inertiajs/inertia-vue3";
 
 export default {

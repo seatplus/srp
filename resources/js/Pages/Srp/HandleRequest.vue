@@ -10,7 +10,7 @@
           v-if="canEdit && isReady"
           class="ml-1"
         >
-          <PencilAltIcon
+          <PencilSquareIcon
             class="h-5 w-5"
             @click="openEditMode"
           />
@@ -86,7 +86,7 @@
     <Link
       v-show="isReady && canEdit && step===1"
       as="button"
-      :href="$route('submit.srp.request', srpRequest.id)"
+      :href="route('submit.srp.request', srpRequest.id)"
       method="post"
       :data="{reimbursement: sum}"
       type="button"
@@ -155,13 +155,13 @@
 </template>
 
 <script>
-import {CheckCircleIcon, XCircleIcon, PencilAltIcon} from '@heroicons/vue/solid'
+import {CheckCircleIcon, XCircleIcon, PencilSquareIcon} from '@heroicons/vue/20/solid'
 import {computed, ref } from "vue";
 import {useForm, Link} from "@inertiajs/inertia-vue3";
 
 export default {
     name: "HandleRequest",
-    components: {CheckCircleIcon, XCircleIcon, PencilAltIcon, Link},
+    components: {CheckCircleIcon, XCircleIcon, PencilSquareIcon, Link},
     props: {
         isReady: {
             type: Boolean,
@@ -232,7 +232,7 @@ export default {
                 sum: this.sum,
                 decision: accepted
             }))
-            .post(this.$route('handle.srp.request', this.srpRequest.id))
+            .post(route('handle.srp.request', this.srpRequest.id))
         }
     }
 

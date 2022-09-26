@@ -60,15 +60,14 @@
 </template>
 
 <script>
-import PageHeader from "@/Shared/Layout/PageHeader";
-import Layout from "@/Shared/SidebarLayout/Layout"
-import route from 'ziggy'
+import PageHeader from "@/Shared/Layout/PageHeader.vue";
+import DarkSidebar from "@/Shared/SidebarLayout/DarkSidebar.vue"
 import { Link } from "@inertiajs/inertia-vue3";
 
 export default {
     name: "AdminTemplate",
     components: { PageHeader, Link},
-    layout: (h, page) => h(Layout, { activeSidebarElement: route('review.srp.requests') }, [page]),
+    layout: (h, page) => h(DarkSidebar, { activeSidebarElement: 'review.srp.requests' }, [page]),
     props: {
         tabs: {
             type: Array,
