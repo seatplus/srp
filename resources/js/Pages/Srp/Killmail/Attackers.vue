@@ -9,6 +9,7 @@
   >
     <div
       v-for="attacker in enhanced_attackers"
+      :key="attacker.character_id"
       class="flex flex-row justify-start items-center space-x-4"
     >
       <div class="">
@@ -35,7 +36,10 @@
         <span class="text-xs font-semibold tracking-wide uppercase">{{ attacker.name }}</span>
         <span class="text-sm text-gray-500">{{ attacker.corporation.name }} {{ attacker.alliance.name ? ` | ${attacker.alliance.name}` : '' }}</span>
       </div>
-      <div v-if="attacker.final_blow" class="flex-shrink-0">
+      <div
+        v-if="attacker.final_blow"
+        class="flex-shrink-0"
+      >
         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
           Final Blow
         </span>
@@ -47,9 +51,8 @@
 
 <script>
 import axios from "axios";
-import route from 'ziggy'
 import {computed, onBeforeMount, ref} from "vue";
-import EveImage from "@/Shared/EveImage";
+import EveImage from "@/Shared/EveImage.vue";
 
 export default {
     name: "Attackers",

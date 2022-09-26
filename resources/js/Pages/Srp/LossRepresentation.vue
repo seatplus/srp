@@ -22,9 +22,9 @@
 
 <script>
 import {ref, watch} from "vue";
-import Slot from "./Slot";
+import Slot from "./Slot.vue";
 import {useLoadCompleteResource} from "@/Functions/useLoadCompleteResource";
-import SlotElement from "./SlotElement";
+import SlotElement from "./SlotElement.vue";
 
 const slots = [
     {name: 'Highslots', flag: 'highslots'},

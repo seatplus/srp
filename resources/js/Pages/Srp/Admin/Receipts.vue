@@ -26,7 +26,7 @@
             v-for="receipt in requests.data"
             :key="receipt.id"
           >
-            <Link :href="$route('view.srp.receipt', receipt.uuid)">
+            <Link :href="route('view.srp.receipt', receipt.uuid)">
               <div class="bg-white grid grid-cols-2 sm:grid-cols-4 sm:gap-1 grid-flow-row hover:bg-gray-50 focus-within:ring-2 focus-within:ring-inset focus-within:ring-indigo-500">
                 <div class="px-6 py-4 sm:py-1 self-center truncate">
                   <label class="block text-sm font-medium text-gray-700 sm:hidden">
@@ -115,10 +115,10 @@
 </template>
 
 <script>
-import AdminTemplate from "@/Pages/Srp/Admin/AdminTemplate";
+import AdminTemplate from "@/Pages/Srp/Admin/AdminTemplate.vue";
 import { Link } from "@inertiajs/inertia-vue3";
-import EntityBlock from "@/Shared/Layout/Eve/EntityBlock";
-import Time from "@/Shared/Time";
+import EntityBlock from "@/Shared/Layout/Eve/EntityBlock.vue";
+import Time from "@/Shared/Time.vue";
 
 export default {
     name: "Receipts",

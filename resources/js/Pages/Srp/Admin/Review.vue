@@ -5,8 +5,8 @@
 </template>
 
 <script>
-import SubmittedRequests from "../SubmittedRequests";
-import AdminTemplate from "@/Pages/Srp/Admin/AdminTemplate";
+import SubmittedRequests from "../SubmittedRequests.vue";
+import AdminTemplate from "@/Pages/Srp/Admin/AdminTemplate.vue";
 
 export default {
     name: "Review",

@@ -31,10 +31,10 @@
 </template>
 
 <script>
-import CardWithHeader from "@/Shared/Layout/Cards/CardWithHeader";
+import CardWithHeader from "@/Shared/Layout/Cards/CardWithHeader.vue";
 import {computed, ref, watch} from 'vue'
-import SlotElement from "./SlotElement";
-import NestedContentCard from "./NestedContentCard";
+import SlotElement from "./SlotElement.vue";
+import NestedContentCard from "./NestedContentCard.vue";
 
 export default {
     name: "Slot",

@@ -75,16 +75,15 @@
 </template>
 
 <script>
-import PageHeader from "@/Shared/Layout/PageHeader";
-import LossRepresentation from "./LossRepresentation";
-import Steps from "./Steps";
-import EntityBlock from "@/Shared/Layout/Eve/EntityBlock";
-import EveImage from "@/Shared/EveImage";
+import PageHeader from "@/Shared/Layout/PageHeader.vue";
+import LossRepresentation from "./LossRepresentation.vue";
+import Steps from "./Steps.vue";
+import EntityBlock from "@/Shared/Layout/Eve/EntityBlock.vue";
+import EveImage from "@/Shared/EveImage.vue";
 import {computed, onBeforeMount, ref, watch} from "vue";
 import axios from "axios";
-import route from 'ziggy'
-import HandleRequest from "./HandleRequest";
-import Attackers from "./Killmail/Attackers";
+import HandleRequest from "./HandleRequest.vue";
+import Attackers from "./Killmail/Attackers.vue";
 
 export default {
     name: "Killmail",

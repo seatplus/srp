@@ -1,6 +1,5 @@
 <template>
   <AdminTemplate :tabs="tabs">
-
     <div
       v-for="payment in payments"
       :key="payment.main_character.character_id"
@@ -14,21 +13,21 @@
             </h3>
           </div>
           <div class="ml-4 mt-2 flex-shrink-0 space-x-4">
-            <span class="text-sm font-medium text-gray-500">{{payment.total.toLocaleString()}} ISK</span>
+            <span class="text-sm font-medium text-gray-500">{{ payment.total.toLocaleString() }} ISK</span>
             <button
               v-if="!receipt(payment)"
-              @click="submit(payment)"
               :disabled="isProcessing"
               type="button"
               class="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              @click="submit(payment)"
             >
               Payout
             </button>
             <button
               v-if="receipt(payment)"
-              @click="copyToClipboard(receipt(payment))"
               type="button"
               class="relative inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+              @click="copyToClipboard(receipt(payment))"
             >
               Copy receipt url to clipboard
               <ClipboardCopyIcon class="h-5 w-5 text-white" />
@@ -68,13 +67,13 @@
 </template>
 
 <script>
-import AdminTemplate from "@/Pages/Srp/Admin/AdminTemplate";
+import AdminTemplate from "@/Pages/Srp/Admin/AdminTemplate.vue";
 import {useLoadCompleteResource} from "@/Functions/useLoadCompleteResource";
 import {computed, ref} from "vue";
-import EntityBlock from "@/Shared/Layout/Eve/EntityBlock";
-import SubmittedRequestEntry from "../SubmittedRequestEntry";
+import EntityBlock from "@/Shared/Layout/Eve/EntityBlock.vue";
+import SubmittedRequestEntry from "../SubmittedRequestEntry.vue";
 import axios from "axios";
-import {ClipboardCopyIcon} from '@heroicons/vue/solid'
+import {ClipboardCopyIcon} from '@heroicons/vue/20/solid'
 
 export default {
     name: "Payout",
@@ -118,7 +117,7 @@ export default {
 
             this.isProcessing = true
 
-            axios.post(this.$route('process.payout.srp.requests'), data)
+            axios.post(route('process.payout.srp.requests'), data)
                 .then((response) => this.processed_payments.push({
                     user_id: payment.user_id,
                     receipt_id: response.data
@@ -134,7 +133,7 @@ export default {
         },
         async copyToClipboard(receipt_id) {
 
-            const url = this.$route('view.srp.receipt', receipt_id)
+            const url = route('view.srp.receipt', receipt_id)
 
             await window.navigator.clipboard.writeText(url);
             alert('Copied!');

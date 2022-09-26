@@ -1,7 +1,7 @@
 <template>
-
   <div class="overflow-hidden shadow rounded-lg divide-y divide-gray-200">
-    <div class="bg-white px-4 py-5 sm:px-6"><!---->
+    <div class="bg-white px-4 py-5 sm:px-6">
+      <!---->
       <!-- Content goes here -->
       <div class="flex items-center">
         <div class="flex-shrink-0">
@@ -22,7 +22,8 @@
       </div>
       <!-- We use less vertical padding on card headers on desktop than on body sections -->
     </div>
-    <div><!--class="px-4 py-5 sm:p-6"-->
+    <div>
+      <!--class="px-4 py-5 sm:p-6"-->
       <!-- Content goes here -->
       <LossRepresentation
         :key="item.id"
@@ -35,7 +36,7 @@
 </template>
 
 <script>
-import EveImage from "@/Shared/EveImage";
+import EveImage from "@/Shared/EveImage.vue";
 
 export default {
     name: "NestedContentCard",

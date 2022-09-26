@@ -25,41 +25,58 @@
               </div>
 
               <div class="mt-6 sm:mt-5 space-y-6 sm:space-y-5">
-
-
                 <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-center sm:border-t sm:border-gray-200 sm:pt-5">
-                  <label for="photo" class="block text-sm font-medium text-gray-700">
+                  <label
+                    for="photo"
+                    class="block text-sm font-medium text-gray-700"
+                  >
                     Accountant
                   </label>
                   <div class="mt-1 sm:mt-0 sm:col-span-2">
-                    <EntityBlock :entity="receipt.accountant.main_character" name-font-size="md" />
+                    <EntityBlock
+                      :entity="receipt.accountant.main_character"
+                      name-font-size="md"
+                    />
                   </div>
                 </div>
 
                 <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-center sm:border-t sm:border-gray-200 sm:pt-5">
-                  <label for="photo" class="block text-sm font-medium text-gray-700">
+                  <label
+                    for="photo"
+                    class="block text-sm font-medium text-gray-700"
+                  >
                     Receiver
                   </label>
                   <div class="mt-1 sm:mt-0 sm:col-span-2">
-                    <EntityBlock :entity="receipt.receiver.main_character" name-font-size="md" />
+                    <EntityBlock
+                      :entity="receipt.receiver.main_character"
+                      name-font-size="md"
+                    />
                   </div>
                 </div>
 
                 <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
-                  <label for="about" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                  <label
+                    for="about"
+                    class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
+                  >
                     Amount
                   </label>
                   <div class="mt-1 sm:mt-0 sm:col-span-2">
-                    <p class="mt-2 text-sm text-gray-500">{{ receipt.amount.toLocaleString() }} ISK</p>
+                    <p class="mt-2 text-sm text-gray-500">
+                      {{ receipt.amount.toLocaleString() }} ISK
+                    </p>
                   </div>
                 </div>
 
                 <div class="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5">
-                  <label for="about" class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2">
+                  <label
+                    for="about"
+                    class="block text-sm font-medium text-gray-700 sm:mt-px sm:pt-2"
+                  >
                     Payed at
                   </label>
                   <div class="mt-1 sm:mt-0 sm:col-span-2">
-
                     <p class="mt-2 text-sm text-gray-500">
                       <Time :timestamp="receipt.created_at" />
                     </p>
@@ -67,27 +84,20 @@
                 </div>
               </div>
             </div>
-
           </div>
-
         </div>
       </div>
     </div>
 
     <submitted-requests :requests="{data: receipt.srp_requests}" />
-
-
-
-
-
   </div>
 </template>
 
 <script>
-import PageHeader from "@/Shared/Layout/PageHeader";
-import EntityBlock from "@/Shared/Layout/Eve/EntityBlock";
-import Time from "@/Shared/Time";
-import SubmittedRequests from "../SubmittedRequests";
+import PageHeader from "@/Shared/Layout/PageHeader.vue";
+import EntityBlock from "@/Shared/Layout/Eve/EntityBlock.vue";
+import Time from "@/Shared/Time.vue";
+import SubmittedRequests from "../SubmittedRequests.vue";
 
 export default {
     name: "Index",

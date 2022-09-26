@@ -36,7 +36,6 @@
         </template>
         <template
           v-else-if="step.status === 'current'"
-          condition="step.status === 'current'"
         >
           <div
             v-if="(stepIdx !== steps.length - 1)"
@@ -88,7 +87,7 @@
 </template>
 
 <script>
-import { CheckIcon } from '@heroicons/vue/solid'
+import { CheckIcon } from '@heroicons/vue/20/solid'
 import {computed} from "vue";
 
 const stepsTemplate = [
