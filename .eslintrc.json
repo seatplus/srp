@@ -4,23 +4,40 @@
         "es6": true,
         "node": true
     },
-    "extends": [
+  "settings": {
+    "import/resolver": {
+      "eslint-import-resolver-custom-alias": {
+        "alias": {
+          "@": "./vendor/seatplus/web/resources/js"
+        },
+        "extensions": [".vue", ".js"]
+      }
+    }
+  },
+  "extends": [
         "eslint:recommended",
-        "plugin:vue/vue3-recommended"
+        "plugin:vue/vue3-recommended",
+        "plugin:import/recommended"
     ],
     "globals": {
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly",
         "_": true,
-        "axios": true
+        "axios": true,
+        "route": true
     },
     "parserOptions": {
-        "ecmaVersion": 2018,
+        "ecmaVersion": 2020,
         "sourceType": "module"
     },
     "plugins": [
         "vue"
     ],
     "rules": {
+      "import/extensions": [1, {
+        "js": "never",
+        "vue": "always"
+      }],
+      "vue/multi-word-component-names": 0
     }
 }
