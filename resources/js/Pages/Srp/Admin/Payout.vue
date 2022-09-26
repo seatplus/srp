@@ -30,7 +30,7 @@
               @click="copyToClipboard(receipt(payment))"
             >
               Copy receipt url to clipboard
-              <ClipboardCopyIcon class="h-5 w-5 text-white" />
+              <ClipboardDocumentCheckIcon class="h-5 w-5 text-white" />
             </button>
           </div>
         </div>
@@ -73,11 +73,11 @@ import {computed, ref} from "vue";
 import EntityBlock from "@/Shared/Layout/Eve/EntityBlock.vue";
 import SubmittedRequestEntry from "../SubmittedRequestEntry.vue";
 import axios from "axios";
-import {ClipboardCopyIcon} from '@heroicons/vue/20/solid'
+import { ClipboardDocumentCheckIcon } from '@heroicons/vue/20/solid'
 
 export default {
     name: "Payout",
-    components: {SubmittedRequestEntry, AdminTemplate, EntityBlock, ClipboardCopyIcon},
+    components: {SubmittedRequestEntry, AdminTemplate, EntityBlock, ClipboardDocumentCheckIcon},
     props: {
         tabs: {
             type: Array,
