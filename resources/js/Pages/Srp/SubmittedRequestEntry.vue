@@ -75,7 +75,7 @@ import {computed, onBeforeMount, ref} from "vue";
 import axios from "axios";
 import EntityBlock from "@/Shared/Layout/Eve/EntityBlock.vue";
 import { XCircleIcon } from '@heroicons/vue/20/solid'
-import { Link } from "@inertiajs/inertia-vue3";
+import { Link } from '@inertiajs/vue3'
 
 export default {
     name: "SubmittedRequestEntry",

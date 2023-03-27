@@ -62,7 +62,7 @@
 <script>
 import PageHeader from "@/Shared/Layout/PageHeader.vue";
 import DarkSidebar from "@/Shared/SidebarLayout/DarkSidebar.vue"
-import { Link } from "@inertiajs/inertia-vue3";
+import { Link } from "@inertiajs/vue3";
 
 export default {
     name: "AdminTemplate",

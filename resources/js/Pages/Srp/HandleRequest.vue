@@ -157,7 +157,7 @@
 <script>
 import {CheckCircleIcon, XCircleIcon, PencilSquareIcon} from '@heroicons/vue/20/solid'
 import {computed, ref } from "vue";
-import {useForm, Link} from "@inertiajs/inertia-vue3";
+import {useForm, Link} from "@inertiajs/vue3";
 
 export default {
     name: "HandleRequest",

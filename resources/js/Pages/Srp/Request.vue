@@ -91,7 +91,7 @@
 
 <script>
 import PageHeader from "@/Shared/Layout/PageHeader.vue";
-import { useForm } from '@inertiajs/inertia-vue3'
+import { useForm } from '@inertiajs/vue3'
 import SubmittedRequests from "./SubmittedRequests.vue";
 
 export default {
