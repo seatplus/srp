@@ -116,7 +116,7 @@
 
 <script>
 import AdminTemplate from "@/Pages/Srp/Admin/AdminTemplate.vue";
-import { Link } from "@inertiajs/inertia-vue3";
+import { Link } from '@inertiajs/vue3'
 import EntityBlock from "@/Shared/Layout/Eve/EntityBlock.vue";
 import Time from "@/Shared/Time.vue";
 

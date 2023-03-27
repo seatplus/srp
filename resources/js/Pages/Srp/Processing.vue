@@ -32,7 +32,7 @@
 import PageHeader from "@/Shared/Layout/PageHeader.vue";
 import {onBeforeMount, onUnmounted, ref, watch} from "vue";
 import axios from "axios";
-import { Inertia } from '@inertiajs/inertia'
+import { router } from '@inertiajs/vue3'
 import Steps from "./Steps.vue";
 
 export default {
@@ -70,7 +70,7 @@ export default {
 
         watch(status, (newValue, oldValue) => {
             if(newValue === 'finished')
-                Inertia.get(route('view.srp.request', props.id))
+                router.get(route('view.srp.request', props.id))
             if(oldValue === 'pending')
                 clearInterval(updateStatus.value)
 
