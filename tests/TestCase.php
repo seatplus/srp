@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Foundation\Testing\LazilyRefreshDatabase;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Queue;
+use Illuminate\Support\Str;
 use Inertia\Inertia;
 use Inertia\ServiceProvider as InertiaServiceProviderAlias;
 use Orchestra\Testbench\TestCase as OrchestraTestCase;
@@ -17,6 +18,7 @@ use Seatplus\Eveapi\EveapiServiceProvider;
 use Seatplus\Srp\SrpServiceProvider;
 use Seatplus\Srp\Tests\Stubs\Kernel;
 use Seatplus\Web\Http\Middleware\Authenticate;
+use Seatplus\Web\Models\Asset\Asset;
 use Seatplus\Web\WebServiceProvider;
 use Spatie\Permission\PermissionRegistrar;
 
@@ -34,7 +36,12 @@ abstract class TestCase extends OrchestraTestCase
 
         // Setup factories
         Factory::guessFactoryNamesUsing(
-            fn (string $modelName) => 'Seatplus\\Srp\\Database\\Factories\\'.class_basename($modelName).'Factory'
+            fn (string $modelName) => match (true) {
+                Str::startsWith($modelName, 'Seatplus\Auth') => 'Seatplus\\Auth\\Database\\Factories\\' . class_basename($modelName) . 'Factory',
+                Str::startsWith($modelName, 'Seatplus\Eveapi'), Asset::class === $modelName => 'Seatplus\\Eveapi\\Database\\Factories\\' . class_basename($modelName) . 'Factory',
+                Str::startsWith($modelName, 'Seatplus\Web') => 'Seatplus\\Web\\Database\\Factories\\' . class_basename($modelName) . 'Factory',
+                Str::startsWith($modelName, 'Seatplus\Srp') => 'Seatplus\\Srp\\Database\\Factories\\' . class_basename($modelName) . 'Factory',
+            }
         );
 
         // Setup Inertia Root View
@@ -43,10 +50,6 @@ abstract class TestCase extends OrchestraTestCase
         // Do not use the queue
         Queue::fake();
 
-        // setup database
-        $this->setupDatabase($this->app);
-
-        /** @noinspection PhpFieldAssignmentTypeMismatchInspection */
         $this->test_user = Event::fakeFor(fn () => User::factory()->create());
 
         $this->test_character = $this->test_user->characters->first();
@@ -85,16 +88,6 @@ abstract class TestCase extends OrchestraTestCase
             InertiaServiceProviderAlias::class,
             AuthenticationServiceProvider::class,
         ];
-    }
-
-    /**
-     * @param \Illuminate\Foundation\Application  $app
-     */
-    private function setupDatabase($app)
-    {
-        // Path to our migrations to load
-        //$this->loadMigrationsFrom(__DIR__ . '/database/migrations');
-        $this->artisan('migrate');
     }
 
     /**

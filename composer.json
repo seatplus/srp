@@ -28,11 +28,11 @@
     "seatplus/web": "^3.0"
   },
   "require-dev": {
-    "orchestra/testbench": "^7.1",
-    "nunomaduro/collision": "^6.1",
-    "rector/rector": "^0.12.17",
-    "pestphp/pest": "^1.20",
-    "brianium/paratest": "^6.2"
+    "orchestra/testbench": "^8.1",
+    "nunomaduro/collision": "^7.0",
+    "rector/rector": "^0.15.21",
+    "pestphp/pest": "^2.0",
+    "pestphp/pest-plugin-laravel": "^2.0"
   },
   "extra": {
     "laravel": {
